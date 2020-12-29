@@ -1,1 +1,1 @@
-Sitemap: https://ashudva.github.io/KED/sitemap.xml
+Sitemap: https://www.ashishdev.tech/sitemap.xml
