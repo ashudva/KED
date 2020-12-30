@@ -462,7 +462,7 @@ li .post-meta-description { color: #BDBDBD !important; }
 
 .image-preview, .output_png { filter: invert(90%); }
 
-.input_area pre, .input_area div { font-family: 'Fira Code' !important; font-variant-ligatures: initial !important; }
+.input_area pre, .input_area div, code { font-family: 'Fira Code' !important; font-variant-ligatures: initial !important; }
 
 .site-header { font-family: 'IBM Plex Mono', monospace; border: none; }
 
