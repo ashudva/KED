@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Keen Eye & Data
-description: My blogging site where I host lots of interesting case studies and other Projects.
+description: Keen Eye & Data, to be a perspicacious Data Scientist.
 github_username: ashudva
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "KED"
@@ -46,7 +46,7 @@ minima:
 use_math: true
 
 # Set this to true to display the summary of your blog post under your title on the Home page.
-show_description: true
+show_description: false
 
 # Set this to true to display image previews on home page, if they exist
 show_image: true
