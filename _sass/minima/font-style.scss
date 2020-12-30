@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+.input_area pre, .input_area div {
+  font-family: 'Fira Code' !important;
+  font-variant-ligatures: initial !important;
+}
+
+.site-header {
+    font-family: 'IBM Plex Mono', monospace;
+    border: none;
+}
+
+.site-header a:hover {
+    color: $med-emph !important;
+    text-decoration: none !important;
+}
+
+.home {
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+.page-content {
+    font-family: 'Roboto', sans-serif;
+}
+
+.site-footer {
+    font-family: 'IBM Plex Mono', monospace;
+    border: none;
+}
