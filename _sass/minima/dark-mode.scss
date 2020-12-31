@@ -82,13 +82,13 @@ canvas {
 }
 .post-list > li > div {
     border-radius: 5px !important;
-    box-shadow: 0 3px 6px rgba(149,157,165,0.15) !important;
-    background-color: #212121;
+    box-shadow: none !important;
+    background-color: $overlay;
     border: none;
 }
 
 li .post-meta-description {
-    color: #BDBDBD !important;
+    color: $med-emph !important;
 }
 
 .image-preview, .output_png {
