@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using Regression for Revenue Prediction of movies | Keen Eye &amp; Data</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Using Regression for Revenue Prediction of movies" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Using TMDb dataset we’ll try to predict the revenue of a movie based on the characteristics of the movie, and predict whether a movie’s revenue will exceed its budget or not" />
+<meta property="og:description" content="Using TMDb dataset we’ll try to predict the revenue of a movie based on the characteristics of the movie, and predict whether a movie’s revenue will exceed its budget or not" />
+<link rel="canonical" href="https://www.ashishdev.tech/fastpages/jupyter/2020/01/06/Movies.html" />
+<meta property="og:url" content="https://www.ashishdev.tech/fastpages/jupyter/2020/01/06/Movies.html" />
+<meta property="og:site_name" content="Keen Eye &amp; Data" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-06T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://www.ashishdev.tech/fastpages/jupyter/2020/01/06/Movies.html","@type":"BlogPosting","headline":"Using Regression for Revenue Prediction of movies","dateModified":"2020-01-06T00:00:00-06:00","datePublished":"2020-01-06T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/fastpages/jupyter/2020/01/06/Movies.html"},"description":"Using TMDb dataset we’ll try to predict the revenue of a movie based on the characteristics of the movie, and predict whether a movie’s revenue will exceed its budget or not","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.tech/feed.xml" title="Keen Eye &amp; Data" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Keen Eye &amp; Data</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using Regression for Revenue Prediction of movies</h1><p class="page-description">Using TMDb dataset we'll try to **predict the revenue** of a movie based on the characteristics of the movie, and **predict whether a movie's revenue will exceed its budget or not**</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-01-06T00:00:00-06:00" itemprop="datePublished">
+        Jan 6, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#fastpages">fastpages</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ashudva/KED/tree/master/_notebooks/2020-01-06-Movies.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ashudva/KED/master?filepath=_notebooks%2F2020-01-06-Movies.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ashudva/KED/blob/master/_notebooks/2020-01-06-Movies.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-01-06-Movies.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Throughout the case study/analysis we'll be using the following libraries:</p>
+<table>
+<thead><tr>
+<th>Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sklearn</code></td>
+<td>Modelling</td>
+</tr>
+<tr>
+<td><code>matplotlib</code>, <code>bokeh</code></td>
+<td>Visualization</td>
+</tr>
+<tr>
+<td><code>numpy</code>, <code>pandas</code></td>
+<td>Data Manipulation</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this case study I am going to do several things first, I want to <strong>predict the revenue</strong> of a movie based on the characteristics of the movie, second I want to <strong>predict whether a movie's revenue will exceed its budget or not</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Drudgery:-import-and-take-a-look-at-the-data">Drudgery: import and take a look at the data<a class="anchor-link" href="#Drudgery:-import-and-take-a-look-at-the-data"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/processed_data.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 4803 entries, 0 to 4802
+Data columns (total 22 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   budget                4803 non-null   int64  
+ 1   genres                4775 non-null   object 
+ 2   homepage              1712 non-null   object 
+ 3   id                    4803 non-null   int64  
+ 4   keywords              4391 non-null   object 
+ 5   original_language     4803 non-null   object 
+ 6   original_title        4803 non-null   object 
+ 7   overview              4800 non-null   object 
+ 8   popularity            4803 non-null   float64
+ 9   production_companies  4452 non-null   object 
+ 10  production_countries  4629 non-null   object 
+ 11  release_date          4802 non-null   object 
+ 12  revenue               4803 non-null   int64  
+ 13  runtime               4801 non-null   float64
+ 14  spoken_languages      4716 non-null   object 
+ 15  status                4803 non-null   object 
+ 16  tagline               3959 non-null   object 
+ 17  title                 4803 non-null   object 
+ 18  vote_average          4803 non-null   float64
+ 19  vote_count            4803 non-null   int64  
+ 20  movie_id              4803 non-null   int64  
+ 21  cast                  4760 non-null   object 
+dtypes: float64(3), int64(5), object(14)
+memory usage: 863.0+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>budget</th>
+      <th>genres</th>
+      <th>homepage</th>
+      <th>id</th>
+      <th>keywords</th>
+      <th>original_language</th>
+      <th>original_title</th>
+      <th>overview</th>
+      <th>popularity</th>
+      <th>production_companies</th>
+      <th>...</th>
+      <th>revenue</th>
+      <th>runtime</th>
+      <th>spoken_languages</th>
+      <th>status</th>
+      <th>tagline</th>
+      <th>title</th>
+      <th>vote_average</th>
+      <th>vote_count</th>
+      <th>movie_id</th>
+      <th>cast</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>237000000</td>
+      <td>Action, Adventure, Fantasy, Science Fiction</td>
+      <td>http://www.avatarmovie.com/</td>
+      <td>19995</td>
+      <td>culture clash, future, space war, space colony...</td>
+      <td>en</td>
+      <td>Avatar</td>
+      <td>In the 22nd century, a paraplegic Marine is di...</td>
+      <td>150.437577</td>
+      <td>Ingenious Film Partners, Twentieth Century Fox...</td>
+      <td>...</td>
+      <td>2787965087</td>
+      <td>162.0</td>
+      <td>English, Español</td>
+      <td>Released</td>
+      <td>Enter the World of Pandora.</td>
+      <td>Avatar</td>
+      <td>7.2</td>
+      <td>11800</td>
+      <td>19995</td>
+      <td>Sam Worthington, Zoe Saldana, Sigourney Weaver...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>300000000</td>
+      <td>Adventure, Fantasy, Action</td>
+      <td>http://disney.go.com/disneypictures/pirates/</td>
+      <td>285</td>
+      <td>ocean, drug abuse, exotic island, east india t...</td>
+      <td>en</td>
+      <td>Pirates of the Caribbean: At World's End</td>
+      <td>Captain Barbossa, long believed to be dead, ha...</td>
+      <td>139.082615</td>
+      <td>Walt Disney Pictures, Jerry Bruckheimer Films,...</td>
+      <td>...</td>
+      <td>961000000</td>
+      <td>169.0</td>
+      <td>English</td>
+      <td>Released</td>
+      <td>At the end of the world, the adventure begins.</td>
+      <td>Pirates of the Caribbean: At World's End</td>
+      <td>6.9</td>
+      <td>4500</td>
+      <td>285</td>
+      <td>Johnny Depp, Orlando Bloom, Keira Knightley, S...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>245000000</td>
+      <td>Action, Adventure, Crime</td>
+      <td>http://www.sonypictures.com/movies/spectre/</td>
+      <td>206647</td>
+      <td>spy, based on novel, secret agent, sequel, mi6...</td>
+      <td>en</td>
+      <td>Spectre</td>
+      <td>A cryptic message from Bond’s past sends him o...</td>
+      <td>107.376788</td>
+      <td>Columbia Pictures, Danjaq, B24</td>
+      <td>...</td>
+      <td>880674609</td>
+      <td>148.0</td>
+      <td>Français, English, Español, Italiano, Deutsch</td>
+      <td>Released</td>
+      <td>A Plan No One Escapes</td>
+      <td>Spectre</td>
+      <td>6.3</td>
+      <td>4466</td>
+      <td>206647</td>
+      <td>Daniel Craig, Christoph Waltz, Léa Seydoux, Ra...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>250000000</td>
+      <td>Action, Crime, Drama, Thriller</td>
+      <td>http://www.thedarkknightrises.com/</td>
+      <td>49026</td>
+      <td>dc comics, crime fighter, terrorist, secret id...</td>
+      <td>en</td>
+      <td>The Dark Knight Rises</td>
+      <td>Following the death of District Attorney Harve...</td>
+      <td>112.312950</td>
+      <td>Legendary Pictures, Warner Bros., DC Entertain...</td>
+      <td>...</td>
+      <td>1084939099</td>
+      <td>165.0</td>
+      <td>English</td>
+      <td>Released</td>
+      <td>The Legend Ends</td>
+      <td>The Dark Knight Rises</td>
+      <td>7.6</td>
+      <td>9106</td>
+      <td>49026</td>
+      <td>Christian Bale, Michael Caine, Gary Oldman, An...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>260000000</td>
+      <td>Action, Adventure, Science Fiction</td>
+      <td>http://movies.disney.com/john-carter</td>
+      <td>49529</td>
+      <td>based on novel, mars, medallion, space travel,...</td>
+      <td>en</td>
+      <td>John Carter</td>
+      <td>John Carter is a war-weary, former military ca...</td>
+      <td>43.926995</td>
+      <td>Walt Disney Pictures</td>
+      <td>...</td>
+      <td>284139100</td>
+      <td>132.0</td>
+      <td>English</td>
+      <td>Released</td>
+      <td>Lost in our world, found in another.</td>
+      <td>John Carter</td>
+      <td>6.1</td>
+      <td>2124</td>
+      <td>49529</td>
+      <td>Taylor Kitsch, Lynn Collins, Samantha Morton, ...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Preprocessing">Data Preprocessing<a class="anchor-link" href="#Data-Preprocessing"> </a></h1><p>Our Second step would be to clean and transform the data so that we could apply Regression or Classification algorithm on the data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Defining-Regression-and-Classification-Outcomes">Defining Regression and Classification Outcomes<a class="anchor-link" href="#Defining-Regression-and-Classification-Outcomes"> </a></h2><p>For regression we'll be using <code>revenue</code> as the target for outcomes, and for classification we'll construct an indicator of profitability for each movie. Let's define new column <code>profitable</code> such that:
+$$
+  \begin{equation}
+    Profitabe =
+    \begin{cases}
+      1, &amp; \text{if}\ revenue &gt; budget \\
+      0, &amp; \text{otherwise}
+    \end{cases}
+  \end{equation}
+$$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;profitable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">revenue</span> <span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">budget</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;profitable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;profitable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">regression_target</span> <span class="o">=</span> <span class="s1">&#39;revenue&#39;</span>
+<span class="n">classification_target</span> <span class="o">=</span> <span class="s1">&#39;profitable&#39;</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;profitable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1    2585
+0    2218
+Name: profitable, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>2585 out of all movies in the dataset were profitable</p>
+<h2 id="Handling-missing-and-infinite-values">Handling missing and infinite values<a class="anchor-link" href="#Handling-missing-and-infinite-values"> </a></h2><p>Looking at the data we can easily guess that many of the columns are non-numeric and using a technique other than ommiting the columns might be a bit overhead. So I'm going to stick with plane and simple technique of ommiting the column with missing or infinite values.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ol>
+<li>Replace any <code>np.inf</code> or <code>-np.inf</code> occuring in the dataset with np.nan</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(4803, 23)
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 4803 entries, 0 to 4802
+Data columns (total 23 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   budget                4803 non-null   int64  
+ 1   genres                4775 non-null   object 
+ 2   homepage              1712 non-null   object 
+ 3   id                    4803 non-null   int64  
+ 4   keywords              4391 non-null   object 
+ 5   original_language     4803 non-null   object 
+ 6   original_title        4803 non-null   object 
+ 7   overview              4800 non-null   object 
+ 8   popularity            4803 non-null   float64
+ 9   production_companies  4452 non-null   object 
+ 10  production_countries  4629 non-null   object 
+ 11  release_date          4802 non-null   object 
+ 12  revenue               4803 non-null   int64  
+ 13  runtime               4801 non-null   float64
+ 14  spoken_languages      4716 non-null   object 
+ 15  status                4803 non-null   object 
+ 16  tagline               3959 non-null   object 
+ 17  title                 4803 non-null   object 
+ 18  vote_average          4803 non-null   float64
+ 19  vote_count            4803 non-null   int64  
+ 20  movie_id              4803 non-null   int64  
+ 21  cast                  4760 non-null   object 
+ 22  profitable            4803 non-null   int32  
+dtypes: float64(3), int32(1), int64(5), object(14)
+memory usage: 881.8+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that <code>homepage</code> column accounts for maximun <code>null</code> or minimun <code>non-null</code> values in the dataset, and we can discard it as a feature for more data.</p>
+<ol>
+<li>Drop any column with <code>na</code> and drop <code>homepage</code> column</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(3665, 22)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Transform-genre-column-using-OneHotEncoding">Transform <code>genre</code> column using <code>OneHotEncoding</code><a class="anchor-link" href="#Transform-genre-column-using-OneHotEncoding"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since <code>genres</code> column consists of strings with comma separated genres e.g. <code>"Action, Adventure, Fantasy"</code> as a value for a particular movie, I'll convert string to list, then extract all unique genres in the list and finally add a column for each unique genre. Value of a specific genre will be <code>0</code> if it is present in <code>genres</code> otherwise <code>0</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_genres</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">genres</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+<span class="n">genres</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">list_genres</span><span class="p">:</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">genre</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">genre</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">genres</span><span class="p">:</span>
+            <span class="n">genres</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">genre</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">genres</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">genre</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">genre</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="n">genres</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Action</th>
+      <th>Adventure</th>
+      <th>Fantasy</th>
+      <th>Science Fiction</th>
+      <th>Crime</th>
+      <th>Drama</th>
+      <th>Thriller</th>
+      <th>Animation</th>
+      <th>Family</th>
+      <th>Western</th>
+      <th>Comedy</th>
+      <th>Romance</th>
+      <th>Horror</th>
+      <th>Mystery</th>
+      <th>History</th>
+      <th>War</th>
+      <th>Music</th>
+      <th>Documentary</th>
+      <th>Foreign</th>
+      <th>TV Movie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extract-numerical-variables">Extract numerical variables<a class="anchor-link" href="#Extract-numerical-variables"> </a></h2><p>Many of the variables in the dataset are already numerical which will be useful in regression, we'll be extracting these variables and we'll also calculate <code>skew</code> of the continuous variables, <code>plot</code> these variables.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="ashudva/KED"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/fastpages/jupyter/2020/01/06/Movies.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Keen Eye &amp; Data, to be a perspicacious Data Scientist.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ashudva" title="ashudva"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ked_ashish" title="ked_ashish"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
