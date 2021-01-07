@@ -468,16 +468,8 @@ memory usage: 863.0+ KB
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Defining-Regression-and-Classification-Outcomes">Defining Regression and Classification Outcomes<a class="anchor-link" href="#Defining-Regression-and-Classification-Outcomes"> </a></h2><p>For regression we'll be using <code>revenue</code> as the target for outcomes, and for classification we'll construct an indicator of profitability for each movie. Let's define new column <code>profitable</code> such that:
-$$
-  \begin{equation}
-    Profitabe =
-    \begin{cases}
-      1, &amp; \text{if}\ revenue &gt; budget \\
-      0, &amp; \text{otherwise}
-    \end{cases}
-  \end{equation}
-$$</p>
+<h2 id="Defining-Regression-and-Classification-Outcomes">Defining Regression and Classification Outcomes<a class="anchor-link" href="#Defining-Regression-and-Classification-Outcomes"> </a></h2><p>For regression we'll be using <code>revenue</code> as the target for outcomes, and for classification we'll construct an indicator of profitability for each movie. Let's define new column <code>profitable</code> such that:</p>
+<p><code>profitable = 1 if revenue &gt; budget, 0 otherwise</code></p>
 
 </div>
 </div>
