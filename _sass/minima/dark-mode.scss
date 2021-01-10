@@ -35,7 +35,7 @@ $overlay-light: mix($dark-grey, white, 86%);
 
     pre, code {
         // BVas a lighter colour to better highlight short code words
-        border-color: $overlay-light;
+        border: none;
         background-color: $overlay;
     }
 
@@ -94,5 +94,20 @@ $overlay-light: mix($dark-grey, white, 86%);
 
     .image-preview, .output_png {
         filter: invert(90%);
+    }
+
+    .Toast-content {
+        background-color: $overlay;
+        color: $high-emph;
+        border: 0px 6px 6px 0px !important;
+    }
+
+    .Toast {
+        box-shadow: none !important;
+        border: none;
+    }
+
+    .input_area pre {
+        border-left: 3px solid lightcoral !important;
     }
 }
