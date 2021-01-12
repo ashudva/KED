@@ -10,14 +10,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The case study consists of analysis of migration patterns of three birds" />
 <meta property="og:description" content="The case study consists of analysis of migration patterns of three birds" />
-<link rel="canonical" href="https://www.ashishdev.tech/case-study/markdown/r/2020/10/10/Gapminder.html" />
-<meta property="og:url" content="https://www.ashishdev.tech/case-study/markdown/r/2020/10/10/Gapminder.html" />
+<link rel="canonical" href="https://www.ashishdev.tech/case-study/notebook/r/2020/10/10/Gapminder.html" />
+<meta property="og:url" content="https://www.ashishdev.tech/case-study/notebook/r/2020/10/10/Gapminder.html" />
 <meta property="og:site_name" content="Keen Eye &amp; Data" />
 <meta property="og:image" content="https://www.ashishdev.tech/images/vignette/gapminder.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-10-10T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://www.ashishdev.tech/case-study/markdown/r/2020/10/10/Gapminder.html","@type":"BlogPosting","headline":"Health and world economical growth","dateModified":"2020-10-10T00:00:00-05:00","datePublished":"2020-10-10T00:00:00-05:00","image":"https://www.ashishdev.tech/images/vignette/gapminder.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/case-study/markdown/r/2020/10/10/Gapminder.html"},"description":"The case study consists of analysis of migration patterns of three birds","@context":"https://schema.org"}</script>
+{"url":"https://www.ashishdev.tech/case-study/notebook/r/2020/10/10/Gapminder.html","@type":"BlogPosting","headline":"Health and world economical growth","dateModified":"2020-10-10T00:00:00-05:00","datePublished":"2020-10-10T00:00:00-05:00","image":"https://www.ashishdev.tech/images/vignette/gapminder.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/case-study/notebook/r/2020/10/10/Gapminder.html"},"description":"The case study consists of analysis of migration patterns of three birds","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.tech/feed.xml" title="Keen Eye &amp; Data" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -94,7 +94,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      16 min read
+      15 min read
     
 </span></p>
 
@@ -104,7 +104,7 @@ window.onload = wrap_img;
         <a class="category-tags-link" href="/categories/#case-study">case-study</a>
         &nbsp;
       
-        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
+        <a class="category-tags-link" href="/categories/#notebook">notebook</a>
         &nbsp;
       
         <a class="category-tags-link" href="/categories/#R">R</a>
@@ -309,77 +309,6 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">mortality</span> <span class="o">&lt;-</span> <span class="n">gapminder</span> <span class="o">%&gt;%</span>
-    <span class="nf">filter</span><span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="m">2015</span> <span class="o">&amp;</span> <span class="n">country</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Sri Lanka&quot;</span><span class="p">,</span> <span class="s">&quot;Turkey&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-    <span class="nf">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">infant_mortality</span><span class="p">)</span>
-<span class="n">mortality</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">mortality</span><span class="p">[</span><span class="m">1</span><span class="p">,],</span> <span class="n">mortality</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span>
-<span class="n">mortality</span> <span class="o">&lt;-</span> <span class="n">mortality</span><span class="p">[</span><span class="m">-2</span><span class="p">,]</span>
-
-<span class="n">mortality1</span> <span class="o">&lt;-</span> <span class="n">gapminder</span> <span class="o">%&gt;%</span>
-    <span class="nf">filter</span><span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="m">2015</span> <span class="o">&amp;</span> <span class="n">country</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">,</span><span class="s">&quot;South Korea&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-    <span class="nf">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">infant_mortality</span><span class="p">)</span>
-<span class="n">mortality1</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">mortality1</span><span class="p">[</span><span class="m">1</span><span class="p">,],</span> <span class="n">mortality1</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span>
-<span class="n">mortality1</span> <span class="o">&lt;-</span> <span class="n">mortality1</span><span class="p">[</span><span class="m">-2</span><span class="p">,]</span>
-
-<span class="n">mortality2</span> <span class="o">&lt;-</span> <span class="n">gapminder</span> <span class="o">%&gt;%</span>
-    <span class="nf">filter</span><span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="m">2015</span> <span class="o">&amp;</span> <span class="n">country</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Malaysia&quot;</span><span class="p">,</span><span class="s">&quot;Russia&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-    <span class="nf">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">infant_mortality</span><span class="p">)</span>
-<span class="n">mortality2</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">mortality2</span><span class="p">[</span><span class="m">1</span><span class="p">,],</span> <span class="n">mortality2</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span>
-<span class="n">mortality2</span> <span class="o">&lt;-</span> <span class="n">mortality2</span><span class="p">[</span><span class="m">-2</span><span class="p">,]</span>
-
-<span class="n">mortality3</span> <span class="o">&lt;-</span> <span class="n">gapminder</span> <span class="o">%&gt;%</span>
-    <span class="nf">filter</span><span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="m">2015</span> <span class="o">&amp;</span> <span class="n">country</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Pakistan&quot;</span><span class="p">,</span><span class="s">&quot;Vietnam&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-    <span class="nf">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">infant_mortality</span><span class="p">)</span>
-<span class="n">mortality3</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">mortality3</span><span class="p">[</span><span class="m">1</span><span class="p">,],</span> <span class="n">mortality3</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span>
-<span class="n">mortality3</span> <span class="o">&lt;-</span> <span class="n">mortality3</span><span class="p">[</span><span class="m">-2</span><span class="p">,]</span>
-
-<span class="n">mortality4</span> <span class="o">&lt;-</span> <span class="n">gapminder</span> <span class="o">%&gt;%</span>
-    <span class="nf">filter</span><span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="m">2015</span> <span class="o">&amp;</span> <span class="n">country</span> <span class="o">%in%</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Thailand&quot;</span><span class="p">,</span><span class="s">&quot;South Africa&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-    <span class="nf">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">infant_mortality</span><span class="p">)</span>
-<span class="n">mortality4</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">mortality4</span><span class="p">[</span><span class="m">1</span><span class="p">,],</span> <span class="n">mortality4</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span>
-<span class="n">mortality4</span> <span class="o">&lt;-</span> <span class="n">mortality4</span><span class="p">[</span><span class="m">-2</span><span class="p">,]</span>
-<span class="nf">rbind.data.frame</span><span class="p">(</span><span class="n">mortality</span><span class="p">,</span><span class="n">mortality1</span><span class="p">,</span><span class="n">mortality2</span><span class="p">,</span><span class="n">mortality3</span><span class="p">,</span><span class="n">mortality4</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<thead><tr><th scope="col">country</th><th scope="col">infant_mortality</th><th scope="col">country</th><th scope="col">infant_mortality</th></tr></thead>
-<tbody>
-	<tr><td>Sri Lanka   </td><td> 8.4        </td><td>Turkey      </td><td>11.6        </td></tr>
-	<tr><td>South Korea </td><td> 2.9        </td><td>Poland      </td><td> 4.5        </td></tr>
-	<tr><td>Malaysia    </td><td> 6.0        </td><td>Russia      </td><td> 8.2        </td></tr>
-	<tr><td>Pakistan    </td><td>65.8        </td><td>Vietnam     </td><td>17.3        </td></tr>
-	<tr><td>South Africa</td><td>33.6        </td><td>Thailand    </td><td>10.5        </td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -8260,7 +8189,7 @@ have achieved in the last 40 years.</p>
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/case-study/markdown/r/2020/10/10/Gapminder.html" hidden></a>
+</script><a class="u-url" href="/case-study/notebook/r/2020/10/10/Gapminder.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

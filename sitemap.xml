@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://www.ashishdev.tech/fastpages/jupyter/2020/01/06/Movies.html</loc>
+<loc>https://www.ashishdev.tech/notebook/case-study/python/2020/01/06/Movies.html</loc>
 <lastmod>2020-01-06T00:00:00-06:00</lastmod>
 </url>
 <url>
-<loc>https://www.ashishdev.tech/project/sensor-data/machine%20learning/random-forest/2020/01/22/HAR.html</loc>
+<loc>https://www.ashishdev.tech/project/machine-learning/random-forest/notebook/python/2020/01/22/HAR.html</loc>
 <lastmod>2020-01-22T00:00:00-06:00</lastmod>
 </url>
 <url>
-<loc>https://www.ashishdev.tech/case-study/markdown/r/2020/10/10/Gapminder.html</loc>
+<loc>https://www.ashishdev.tech/case-study/notebook/r/2020/10/10/Gapminder.html</loc>
 <lastmod>2020-10-10T00:00:00-05:00</lastmod>
 </url>
 <url>
