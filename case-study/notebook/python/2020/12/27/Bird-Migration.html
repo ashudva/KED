@@ -10,14 +10,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The case study consists of analysis of migration patterns of three birds" />
 <meta property="og:description" content="The case study consists of analysis of migration patterns of three birds" />
-<link rel="canonical" href="https://www.ashishdev.tech/fastpages/jupyter/2020/12/27/Bird-Migration.html" />
-<meta property="og:url" content="https://www.ashishdev.tech/fastpages/jupyter/2020/12/27/Bird-Migration.html" />
+<link rel="canonical" href="https://www.ashishdev.tech/case-study/notebook/python/2020/12/27/Bird-Migration.html" />
+<meta property="og:url" content="https://www.ashishdev.tech/case-study/notebook/python/2020/12/27/Bird-Migration.html" />
 <meta property="og:site_name" content="Keen Eye &amp; Data" />
 <meta property="og:image" content="https://www.ashishdev.tech/images/vignette/bird_migration.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-12-27T00:00:00-06:00" />
 <script type="application/ld+json">
-{"url":"https://www.ashishdev.tech/fastpages/jupyter/2020/12/27/Bird-Migration.html","@type":"BlogPosting","headline":"Birds Migration Patterns","dateModified":"2020-12-27T00:00:00-06:00","datePublished":"2020-12-27T00:00:00-06:00","image":"https://www.ashishdev.tech/images/vignette/bird_migration.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/fastpages/jupyter/2020/12/27/Bird-Migration.html"},"description":"The case study consists of analysis of migration patterns of three birds","@context":"https://schema.org"}</script>
+{"url":"https://www.ashishdev.tech/case-study/notebook/python/2020/12/27/Bird-Migration.html","@type":"BlogPosting","headline":"Birds Migration Patterns","dateModified":"2020-12-27T00:00:00-06:00","datePublished":"2020-12-27T00:00:00-06:00","image":"https://www.ashishdev.tech/images/vignette/bird_migration.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/case-study/notebook/python/2020/12/27/Bird-Migration.html"},"description":"The case study consists of analysis of migration patterns of three birds","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.tech/feed.xml" title="Keen Eye &amp; Data" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -101,10 +101,13 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/categories/#fastpages">fastpages</a>
+        <a class="category-tags-link" href="/categories/#case-study">case-study</a>
         &nbsp;
       
-        <a class="category-tags-link" href="/categories/#jupyter">jupyter</a>
+        <a class="category-tags-link" href="/categories/#notebook">notebook</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
         
       
       </p>
@@ -163,7 +166,7 @@ window.onload = wrap_img;
 <span class="o">%</span><span class="k">matplotlib</span> notebook
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
 
-<span class="n">birddata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">ashish</span><span class="se">\\</span><span class="s2">Work</span><span class="se">\\</span><span class="s2">Case_Studies</span><span class="se">\\</span><span class="s2">Bird Migration</span><span class="se">\\</span><span class="s2">bird_tracking.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">birddata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/bird/bird_tracking.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">birddata</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -545,10 +548,10 @@ Name: bird_name, dtype: int64</pre>
 
 
 
-<div id="e6ade598-d71b-4f85-80bb-6d61e3183563"></div>
+<div id="eb2e9604-2d09-499a-9fcc-d92cfdc8321b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e6ade598-d71b-4f85-80bb-6d61e3183563');
+var element = $('#eb2e9604-2d09-499a-9fcc-d92cfdc8321b');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -1540,10 +1543,10 @@ if (IPython.notebook.kernel !== null) {
 
 
 
-<div id="00362977-2dad-44cd-87f1-63939ca3a568"></div>
+<div id="b2fb852a-1242-4b20-aff0-28ae64b5f080"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#00362977-2dad-44cd-87f1-63939ca3a568');
+var element = $('#b2fb852a-1242-4b20-aff0-28ae64b5f080');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -2959,10 +2962,10 @@ dtype: int64</pre>
 
 
 
-<div id="dfc9608e-5e76-46a3-8049-a0c5f9128c86"></div>
+<div id="47238c97-754e-4168-88f5-4851c3b28375"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dfc9608e-5e76-46a3-8049-a0c5f9128c86');
+var element = $('#47238c97-754e-4168-88f5-4851c3b28375');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -4328,10 +4331,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
 
 
-<div id="02b07aef-c526-478f-a392-e643e91f70b1"></div>
+<div id="7197bf9c-12ff-405c-8cea-eff71d1105bc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#02b07aef-c526-478f-a392-e643e91f70b1');
+var element = $('#7197bf9c-12ff-405c-8cea-eff71d1105bc');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -5346,10 +5349,10 @@ if (IPython.notebook.kernel !== null) {
 
 
 
-<div id="c275503e-22a6-468d-8a27-c4e73ababa15"></div>
+<div id="6fb8263e-6724-418d-89d1-20c225ea1ae0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c275503e-22a6-468d-8a27-c4e73ababa15');
+var element = $('#6fb8263e-6724-418d-89d1-20c225ea1ae0');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -6370,10 +6373,10 @@ if (IPython.notebook.kernel !== null) {
 
 
 
-<div id="76cc18b2-a3e6-4163-af34-69c7eeda896e"></div>
+<div id="d5363f1b-9e80-4835-86d3-01bb3d0313e8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#76cc18b2-a3e6-4163-af34-69c7eeda896e');
+var element = $('#d5363f1b-9e80-4835-86d3-01bb3d0313e8');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -7714,10 +7717,10 @@ Name: altitude, dtype: float64</pre>
 
 
 
-<div id="1cbd029d-967e-4c33-ad39-0e31d2ad08bd"></div>
+<div id="7313cd3b-fbc4-4d1d-98c0-34b848f1e944"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1cbd029d-967e-4c33-ad39-0e31d2ad08bd');
+var element = $('#7313cd3b-fbc4-4d1d-98c0-34b848f1e944');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -8682,7 +8685,7 @@ if (IPython.notebook.kernel !== null) {
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/fastpages/jupyter/2020/12/27/Bird-Migration.html" hidden></a>
+</script><a class="u-url" href="/case-study/notebook/python/2020/12/27/Bird-Migration.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
