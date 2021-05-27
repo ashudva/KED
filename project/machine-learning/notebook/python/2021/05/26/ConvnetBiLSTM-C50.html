@@ -4,19 +4,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Data Preprocessing | Keen Eye &amp; Data</title>
+<title>Authorship Identification: Part-1 (The baseline) | Keen Eye &amp; Data</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Data Preprocessing" />
+<meta property="og:title" content="Authorship Identification: Part-1 (The baseline)" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Keen Eye &amp; Data, to be a perspicacious Data Scientist." />
-<meta property="og:description" content="Keen Eye &amp; Data, to be a perspicacious Data Scientist." />
-<link rel="canonical" href="https://www.ashishdev.tech/2021/05/26/ConvnetBiLSTM-C50.html" />
-<meta property="og:url" content="https://www.ashishdev.tech/2021/05/26/ConvnetBiLSTM-C50.html" />
+<meta name="description" content="Given a large number of authors of texts, the goal is to correctly identify the author of a give text. This problem is considered hard especially when less data is available and texts are small (typically with 500 words or less)." />
+<meta property="og:description" content="Given a large number of authors of texts, the goal is to correctly identify the author of a give text. This problem is considered hard especially when less data is available and texts are small (typically with 500 words or less)." />
+<link rel="canonical" href="https://www.ashishdev.tech/project/machine-learning/notebook/python/2021/05/26/ConvnetBiLSTM-C50.html" />
+<meta property="og:url" content="https://www.ashishdev.tech/project/machine-learning/notebook/python/2021/05/26/ConvnetBiLSTM-C50.html" />
 <meta property="og:site_name" content="Keen Eye &amp; Data" />
+<meta property="og:image" content="https://www.ashishdev.tech/images/vignette/base.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-05-26T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://www.ashishdev.tech/2021/05/26/ConvnetBiLSTM-C50.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/2021/05/26/ConvnetBiLSTM-C50.html"},"headline":"Data Preprocessing","dateModified":"2021-05-26T00:00:00-05:00","datePublished":"2021-05-26T00:00:00-05:00","description":"Keen Eye &amp; Data, to be a perspicacious Data Scientist.","@context":"https://schema.org"}</script>
+{"url":"https://www.ashishdev.tech/project/machine-learning/notebook/python/2021/05/26/ConvnetBiLSTM-C50.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.tech/project/machine-learning/notebook/python/2021/05/26/ConvnetBiLSTM-C50.html"},"headline":"Authorship Identification: Part-1 (The baseline)","dateModified":"2021-05-26T00:00:00-05:00","datePublished":"2021-05-26T00:00:00-05:00","image":"https://www.ashishdev.tech/images/vignette/base.jpg","description":"Given a large number of authors of texts, the goal is to correctly identify the author of a give text. This problem is considered hard especially when less data is available and texts are small (typically with 500 words or less).","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.tech/feed.xml" title="Keen Eye &amp; Data" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,16 +88,32 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Data Preprocessing</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-26T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Authorship Identification: Part-1 (The baseline)</h1><p class="page-description">Given a large number of authors of texts, the goal is to correctly identify the author of a give text. This problem is considered hard especially when less data is available and texts are small (typically with 500 words or less).</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-26T00:00:00-05:00" itemprop="datePublished">
         May 26, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      7 min read
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#project">project</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#machine-learning">machine-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#notebook">notebook</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        
+      
+      </p>
     
 
     
@@ -135,7 +152,180 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Load-dataset">Load dataset<a class="anchor-link" href="#Load-dataset"> </a></h2><p>With 80-20 train and validation split</p>
+<h1 id="Abstract">Abstract<a class="anchor-link" href="#Abstract"> </a></h1><p>Authorship identification is the task of identifying the author of a given text from a set of suspects. The main concern of this task is to define an appropriate characterization of texts that captures the writing style of authors.<br />
+In previous studies various stylometric models have been suggested for the aforementioned task e.g. BiLSTM, SVM, Logistic Regression, several other Deep Learning Models.<br />
+State-of-the-art performance at authroship identification is achieved by BiLSTM but the authors used very small subset of the dataset for testing/holdout.<br /></p>
+<p>This article combines the stack of 1D-CNN with BiLSTM which gives an accuracy of upto 60% when using only 50% of the data for training and rest for the testing.</p>
+<p>Model uses pretrained GloVe word Embeddings for text representation. GloVe uncased word embeddings were trined using Wikipedia 2014 + Gigaword 5 and it consists of 6B tokens, 400K vocab. Embeddings are available as 50d, 100d, 200d, &amp; 300d vectors. <a href="http://nlp.stanford.edu/data/glove.6B.zip">[Source]</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Utilitiy-functions">Utilitiy functions<a class="anchor-link" href="#Utilitiy-functions"> </a></h1><p>These are the functions that I'll be using to do redundant tasks in this part like:</p>
+<ol>
+<li>Plotting train history</li>
+<li>Saving figures</li>
+<li>Saving and Loading pickle objects</li>
+</ol>
+<p>take a look if interested!</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span> <span class="nf">save_object</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a python object to the disk and creates the file if does not exists already.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        file_path - Path object for pkl file location</span>
+<span class="sd">        obj       - object to be saved</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">file_path</span><span class="o">.</span><span class="n">touch</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pickle file </span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> created successfully!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pickle file </span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> already exists!&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;object </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2"> saved to file </span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">load_object</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads the pickle object file from the disk.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        file_path - Path object for pkl file location</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">with</span> <span class="n">file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;loaded object from file </span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span>
+
+
+<span class="k">def</span> <span class="nf">vectorize_sequence</span><span class="p">(</span><span class="n">sequences</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert sequences into one-hot encoded matrix of dimension [len(sequence), dimension]</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">        sequences - ndarray of shape [samples, words]</span>
+<span class="sd">        dimension = number of total words in vocab</span>
+<span class="sd">    Return:</span>
+<span class="sd">        vectorized sequence of shape [samples, one-hot-vecotor]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create all-zero matrix</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">sequences</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequences</span><span class="p">):</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">sequence</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="k">def</span> <span class="nf">plot_history</span><span class="p">(</span>
+    <span class="n">history</span><span class="p">:</span>  <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">History</span><span class="p">,</span>
+    <span class="n">metric</span><span class="p">:</span>  <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;acc&#39;</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots the history of training of a model during epochs</span>
+
+<span class="sd">    Args: history:</span>
+<span class="sd">        model history - training history of a model</span>
+<span class="sd">        metric - </span>
+
+<span class="sd">    Plots:</span>
+<span class="sd">    1. Training and Validation Loss</span>
+<span class="sd">    2. Training and Validation Accuracy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">),</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train loss&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s1">&#39;val_loss&#39;</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;val loss&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">metric</span><span class="p">),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train acc&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;val_</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;val acc&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;epoch&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;epoch&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training History: </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Structure-of-notebook">Structure of notebook<a class="anchor-link" href="#Structure-of-notebook"> </a></h1><ol>
+<li><a href="#Data-Preprocessing">Data Preprocessing</a><br />
+ a. <a href="#Load-Dataset">Load dataset</a><br />
+ b. <a href="#Text-Vectorization">Text Vectorization</a><br />
+ c. <a href="#Configure-dataset">Configure Dataset for faster training</a><br />
+ <br /></li>
+<li><a href="#Modelling">Modelling</a><br />
+ a. <a href="#Embedding-parsing">Parse Glove Embeddings</a><br />
+ b. <a href="#Model">Define ConvnetBiLSTM model</a><br />
+ c. <a href="#load-embedding-matrix">Load Embedding matrix</a><br />
+ <br /></li>
+<li><a href="#Training-and-Evaluation">Training and Evaluation</a></li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Preprocessing">Data Preprocessing<a class="anchor-link" href="#Data-Preprocessing"> </a></h1><p>Dataset: UCI C50 Dataset(small subset of origin RCV1 dataset) <a href="https://archive.ics.uci.edu/ml/datasets/Reuter_50_50#">[Source]</a>
+C50 dataset is widely used for authorship identification.<br />
+Dataset Specifications:</p>
+<blockquote><p>Catagories/Authors:50 <br />&gt; Datapoints per class:50 <br />&gt; Total Datapoints:2500 (train and test subsets each)</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Load-dataset">Load dataset<a class="anchor-link" href="#Load-dataset"> </a></h2><p>With 80-20 train and validation split.<br />
+I'll use <code>text_dataset_from_directory</code> utility of keras library to load dataset which is faster than manually reading the text.<br /></p>
 
 </div>
 </div>
@@ -403,26 +593,9 @@ vocab size of vectorizer: 34000
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Process-dataset-through-layers">Process dataset through layers<a class="anchor-link" href="#Process-dataset-through-layers"> </a></h2>
+<h3 id="Configure-dataset">Configure dataset<a class="anchor-link" href="#Configure-dataset"> </a></h3>
 </div>
 </div>
 </div>
@@ -507,13 +680,7 @@ vocab size of vectorizer: 34000
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Modelling-and-Experimentation">Modelling and Experimentation<a class="anchor-link" href="#Modelling-and-Experimentation"> </a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Base-model">Base model<a class="anchor-link" href="#Base-model"> </a></h2>
+<h1 id="Modelling">Modelling<a class="anchor-link" href="#Modelling"> </a></h1>
 </div>
 </div>
 </div>
@@ -798,7 +965,15 @@ _________________________________________________________________
 
 
 
-  </div><a class="u-url" href="/2021/05/26/ConvnetBiLSTM-C50.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="ashudva/KED"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/project/machine-learning/notebook/python/2021/05/26/ConvnetBiLSTM-C50.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
