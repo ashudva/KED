@@ -9,6 +9,7 @@ comments: true
 categories: [project, machine-learning, python, transformers]
 image: images/vignette/huggingface.png
 hide: false
+sticky_rank: 2
 search_exclude: true
 nb_path: _notebooks/2021-5-24-DistilBERT.ipynb
 layout: notebook
