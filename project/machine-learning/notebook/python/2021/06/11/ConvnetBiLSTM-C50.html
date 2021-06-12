@@ -159,7 +159,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Abstract">Abstract<a class="anchor-link" href="#Abstract"> </a></h1><p>Authorship identification is the task of identifying the author of a given text from a set of suspects. The main concern of this task is to define an appropriate characterization of texts that captures the writing style of authors.<br />
-As a published author usually has a unique writing style in his/her work. The writing style is mostly context independ and is discernible by a human reader.<br />
+As a published author usually has a unique writing style in his/her work. The writing style is mostly context independent and is discernible by a human reader.<br />
 In previous studies various stylometric models have been suggested for the aforementioned task e.g. BiLSTM, SVM, Logistic Regression, several other Deep Learning Models. But most of them fail or show poor results for either short passages or long passages and none of them were able to perform well in both cases.<br />
 <em>Previously the best performance at authroship identification is achieved by LSTM and GRU model</em>.<br /></p>
 <h2 id="Baseline-Model">Baseline Model<a class="anchor-link" href="#Baseline-Model"> </a></h2><p>For setting up a baseline for the task, I used a <strong>combination of stack of 1D-CNN with BiLSTM</strong> which gives a <strong>validation accuracy: ~62% and test accuracy: ~54%</strong> while using a fairly simple BiDirectional LSTM and CNN Architecture. And unsurprisingly the results of baseline model are pretty close to the past best performing model without any type of Tuning.</p>
