@@ -7,14 +7,14 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Keen Eye & Data
-description: Keen Eye & Data, to be a perspicacious Data Scientist.
+description: Keen Eye & Data, to be a perspicacious Data Scientist
 github_username: ashudva
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "KED"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
-url: "https://www.ashishdev.tech" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.ashishdev.codes" # the base hostname & protocol for your site, e.g. http://example.com
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
@@ -39,7 +39,7 @@ baseurl: "" # the subpath of your site, e.g. "/blog".
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: ked_ashish
+    twitter: seriouscapy
     github: ashudva
 
 # Set this to true to get LaTeX math equation support
@@ -58,7 +58,7 @@ annotations: false
 show_tags: true
 
 # Add your Google Analytics ID here if you have one and want to use it
-google_analytics: 
+google_analytics: G-XT571VSXT6
 
 exclude:
   - docker-compose.yml
