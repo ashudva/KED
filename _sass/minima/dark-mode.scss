@@ -6,7 +6,8 @@ $dark-grey : #121212;
 $overlay: mix($dark-grey, white, 95%);
 $overlay-light: mix($dark-grey, white, 86%);
 
-@media (prefers-color-scheme: dark) {
+// set preferred color-shchem to light or dark
+@media (prefers-color-scheme: light) {
     html, body, input, textarea, select, button {   
     color: $high-emph !important;
     background-color: $dark-grey !important;
@@ -92,8 +93,13 @@ $overlay-light: mix($dark-grey, white, 86%);
         color: $med-emph !important;
     }
 
+    // TODO : Bug fix, some plots do not show up in light mode
     .image-preview, .output_png {
         filter: invert(90%);
+    }
+
+    .image-preview {
+        border-radius: 5px;
     }
 
     .Toast-content {
