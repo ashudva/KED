@@ -89,7 +89,26 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home"><p>Protect your eyes, try changing your system theme to <strong>Dark-Mode</strong>. The blog adopts your theme preference for Operating System</p>
+        <div class="home"><p>Try using the <strong>Fun-Mode</strong>! Switch to Dark-Mode, the blog adopts your theme for Operating System</p>
+<p><br /><br />
+<script>
+    const url = "https://api.quotable.io/random";
+    fetch(url)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (data) {
+            document.getElementById("quote").innerHTML = data.content; document.querySelector(".author").innerHTML = "- " +
+                data.author;
+        })
+</script></p>
+
+<div class="container">
+    <div id="quote">
+    </div>
+    <div id="author">
+    </div>
+</div>
 <h1 id="posts">Posts</h1>
 
 
