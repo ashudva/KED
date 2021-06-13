@@ -7,7 +7,7 @@ $overlay: mix($dark-grey, white, 95%);
 $overlay-light: mix($dark-grey, white, 86%);
 
 // set preferred color-shchem to light or dark
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     html, body, input, textarea, select, button {   
     color: $high-emph !important;
     background-color: $dark-grey !important;
