@@ -4,20 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Enable Fira Code and Ligatures in code cells | Keen Eye &amp; Data</title>
+<title>Digit Recognition Playground | Keen Eye &amp; Data</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Enable Fira Code and Ligatures in code cells" />
+<meta property="og:title" content="Digit Recognition Playground" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This tutorial shows how to enable the coding font Fira Code and Ligatures for code cells in your blog post generated with fastpages." />
-<meta property="og:description" content="This tutorial shows how to enable the coding font Fira Code and Ligatures for code cells in your blog post generated with fastpages." />
-<link rel="canonical" href="https://www.ashishdev.codes/fastpages/markdown/tutorial/2020/12/30/Fira-Code.html" />
-<meta property="og:url" content="https://www.ashishdev.codes/fastpages/markdown/tutorial/2020/12/30/Fira-Code.html" />
+<meta name="description" content="It is a simple streamlit webapp which allows you to draw digits and the app will predict the drawn digit." />
+<meta property="og:description" content="It is a simple streamlit webapp which allows you to draw digits and the app will predict the drawn digit." />
+<link rel="canonical" href="https://www.ashishdev.codes/app/2021/02/18/Digit-Recognition.html" />
+<meta property="og:url" content="https://www.ashishdev.codes/app/2021/02/18/Digit-Recognition.html" />
 <meta property="og:site_name" content="Keen Eye &amp; Data" />
-<meta property="og:image" content="https://www.ashishdev.codes/images/vignette/fira-code.png" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-12-30T00:00:00-06:00" />
+<meta property="article:published_time" content="2021-02-18T00:00:00-06:00" />
 <script type="application/ld+json">
-{"url":"https://www.ashishdev.codes/fastpages/markdown/tutorial/2020/12/30/Fira-Code.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.codes/fastpages/markdown/tutorial/2020/12/30/Fira-Code.html"},"headline":"Enable Fira Code and Ligatures in code cells","dateModified":"2020-12-30T00:00:00-06:00","datePublished":"2020-12-30T00:00:00-06:00","image":"https://www.ashishdev.codes/images/vignette/fira-code.png","description":"This tutorial shows how to enable the coding font Fira Code and Ligatures for code cells in your blog post generated with fastpages.","@context":"https://schema.org"}</script>
+{"url":"https://www.ashishdev.codes/app/2021/02/18/Digit-Recognition.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.codes/app/2021/02/18/Digit-Recognition.html"},"headline":"Digit Recognition Playground","dateModified":"2021-02-18T00:00:00-06:00","datePublished":"2021-02-18T00:00:00-06:00","description":"It is a simple streamlit webapp which allows you to draw digits and the app will predict the drawn digit.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.codes/feed.xml" title="Keen Eye &amp; Data" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -94,8 +93,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Enable Fira Code and Ligatures in code cells </h1><p class="page-description">This tutorial shows how to enable the coding font Fira Code and Ligatures for code cells in your blog post generated with fastpages.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-30T00:00:00-06:00" itemprop="datePublished">
-        Dec 30, 2020
+    <h1 class="post-title p-name" itemprop="name headline">Digit Recognition Playground</h1><p class="page-description">It is a simple streamlit webapp which allows you to draw digits and the app will predict the drawn digit.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-18T00:00:00-06:00" itemprop="datePublished">
+        Feb 18, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -107,13 +106,7 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/categories/#fastpages">fastpages</a>
-        &nbsp;
-      
-        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
-        &nbsp;
-      
-        <a class="category-tags-link" href="/categories/#tutorial">tutorial</a>
+        <a class="category-tags-link" href="/categories/#app">app</a>
         
       
       </p>
@@ -122,50 +115,20 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><em>This tutorial is beginner friendly so if you already know about <code class="language-plaintext highlighter-rouge">fira code</code> you might want to skip this part and move to <a href="#css">Using Fira Code and Ligatures</a>.</em></p>
+    <h1 id="handwritten-digit-playground">Handwritten Digit Playground</h1>
 
-<p>For those who are not familiar with fira code, it is one of the most popular fonts for coding, and the reason for that is - not only it’s an artistic font, it also provides <code class="language-plaintext highlighter-rouge">Ligatures</code> which are symbols for common programming multi-character combinations.</p>
-
-<p>Let’s take a look at some examples</p>
-
-<p>Character Combination: <strong>-&gt;</strong></p>
-
-<p>Ligature:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-&gt;</span>
-</code></pre></div></div>
-<p>Character Combination: <strong>!=</strong></p>
-
-<p>Ligature:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!=</span>
-</code></pre></div></div>
-<p>Character Combination: <strong>==</strong></p>
-
-<p>Ligature:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">==</span>
-</code></pre></div></div>
-<p>There’s no reason to discuss all the details about the font, head to <a href="https://en.wikipedia.org/wiki/Fira_(typeface)">wikipedia</a> for more information or go to the <a href="https://github.com/tonsky/FiraCode">FiraCode GitHub link</a> if you want to use fira code anywhere else and for other examples of ligatures and use cases.</p>
-
-<h2 id="css">Using Fira Code and Ligatures</h2>
-<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@import</span> <span class="sx">url('https://fonts.googleapis.com/css2?family=Fira+Code&amp;display=swap')</span><span class="p">;</span>
-
-<span class="nc">.input_area</span> <span class="nt">pre</span><span class="o">,</span> <span class="nc">.input_area</span> <span class="nt">div</span><span class="o">,</span> <span class="nt">code</span> <span class="p">{</span>
-  <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Fira Code'</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="nl">font-variant-ligatures</span><span class="p">:</span> <span class="n">initial</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-<p>Add these lines in <code class="language-plaintext highlighter-rouge">/_sass/minima/custom-styles.scss</code> at root of your repository and you are good to go.</p>
-
-<div class="Toast">
-   <span class="Toast-icon"><svg class="octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
-   <span class="Toast-content"><strong>Fira Code font is only used in code cells of both notebook and markdown</strong></span>
+<div styles="margin: 0px; padding: 0px; height: 100%; border: none; display: block; overflow: auto;">
+    <iframe styles="margin: 0px;
+            padding: 0px;
+            height: 100%;
+            border: none;
+            display: block;
+            width: 100%;
+            border: none;
+            overflow-y: auto;
+            overflow-x: hidden;" src="https://share.streamlit.io/ashudva/dr_web/main/app.py" frameborder="0" marginheight="0" marginwidth="0" width="100%" title="Streamlit WebApp" height="100%" scrolling="auto">
+</iframe>
 </div>
-
-<div class="Toast Toast--warning googoo">
-   <span class="Toast-icon"><svg class="octicon octicon-alert" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg></span>
-   <span class="Toast-content"><strong>Clear browser cache and wait for github actions to finish executing if the effects do not appear immediately</strong></span>
-</div>
-
-<p>Use this <a href="https://github.com/ashudva/KED/blob/master/_sass/minima/font-style.scss">link</a> to get my other font-styles and if you decide to create a new <code class="language-plaintext highlighter-rouge">font-style.scss</code> file as in my case, do not forget to add <code class="language-plaintext highlighter-rouge">@import "minima/font-style";</code> in <code class="language-plaintext highlighter-rouge">custom-styles.scss</code></p>
 
   </div><!-- from https://github.com/utterance/utterances -->
 <script src="https://utteranc.es/client.js"
@@ -175,7 +138,7 @@ window.onload = wrap_img;
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/fastpages/markdown/tutorial/2020/12/30/Fira-Code.html" hidden></a>
+</script><a class="u-url" href="/app/2021/02/18/Digit-Recognition.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
