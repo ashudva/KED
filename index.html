@@ -4,7 +4,6 @@ search_exclude: true
 image: images/logo.png
 ---
 <p>Try using the <strong>Fun-Mode</strong>! Switch to Dark-Mode, the blog adopts your theme for Operating System</p>
-<br><br />
 <script>
     const url = "https://api.quotable.io/random";
     fetch(url)
@@ -12,8 +11,8 @@ image: images/logo.png
             return data.json();
         })
         .then(function (data) {
-            document.getElementById("quote").innerHTML = data.content; document.querySelector(".author").innerHTML = "- " +
-                data.author;
+            document.getElementById("quote").innerHTML = data.content;
+            document.getElementById("author").innerHTML = "- " + data.author;
         })
 </script>
 
