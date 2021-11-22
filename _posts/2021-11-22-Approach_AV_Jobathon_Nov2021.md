@@ -9,15 +9,15 @@ hide: false
 search_exclude: false
 categories: [markdown, jobathon, competetion, analytics]
 ---
-<h1>Table of Contents</h1>
+# Table of Contents
 
-[1. Problem Statement](#1-problem-statement)
-[2. Data Wrangling](#2-data-wrangling)
-[3. Results from the EDA](#3-results-from-the-eda)
-[4. Feature Engineering](#4-feature-engineering)
-[5. Modeling](#5-modeling)      
+- [Problem Statement](#problem-statement)
+- [Data Wrangling](#data-wrangling)
+- [Results from the EDA](#results-from-the-eda)
+- [Feature Engineering](#feature-engineering)
+- [Modeling](#modeling)
 
-# 1. Problem Statement
+# Problem Statement
 Develop a Machine Learning model to aid HR Department in predicting the attrition of employees.
 <h2>Given</h2>
 
@@ -40,13 +40,13 @@ Filled the missing values in `LastWorkingDate` column with the `ReportingDate` c
 
 **Evaluation Metric** - F1 Score
 
-# 2. Data Wrangling
+# Data Wrangling
 To make the data more suitable for Machine Learning models, EDA, and Feature Engineering, a few Data Wrangling steps were taken:
 1. Creating the Target Variable from the `LastWorkingDate` column
 2. Fill missing values in the `LastWorkingDate` column with the `ReportingDate` column
 3. Convert all the Date columns to datetime format
 
-# 3. Results from the EDA
+# Results from the EDA
 Following are the  most prominent observations made from the EDA:
 1. KDE Plots showed that the `Age` and `Salary` were normally distributed.
 2. `Total Business Value` had a lot of zero values.
@@ -55,7 +55,7 @@ Following are the  most prominent observations made from the EDA:
 5. Older Employees have a much less probability of leaving the company, So `JoiningYear`, `Tenure` (in days, months, and years)  would be great features to use in the model.
 6. Employees who did not leave the company have a much **higher number of Positive** `Total Business Value`.
 
-# 4. Feature Engineering
+# Feature Engineering
 **Features that were created based on EDA:**
 1. `JoiningYear` - Year in which the employee joined the company.
 2. `WorkingDays` - Number of working days till the reporting date.
@@ -93,7 +93,7 @@ Following are the  most prominent observations made from the EDA:
 7. `NBVCount`
 8. `City_Count`
 
-# 5. Modeling
+# Modeling
 **List of models used during the model-building:**
 1. XGBoost
 2. CatBoost
