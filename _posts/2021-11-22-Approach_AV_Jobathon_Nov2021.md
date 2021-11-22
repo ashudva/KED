@@ -1,3 +1,14 @@
+---
+title: "Solution Approach - Analytics Vidhya November Jobathoon"
+description: "Documentation of the solution approach for Employee Attrition Prediction Problem in Analytics Vidhya November Jobathon"
+layout: post
+toc: false
+comments: true
+image: images/vignette/AV-Nov.png
+hide: false
+search_exclude: false
+categories: [markdown, jobathon, competetion, analytics]
+---
 <h1>Table of Contents</h1>
 
 [1. Problem Statement](#1-problem-statement)
