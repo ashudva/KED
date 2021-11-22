@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Solution Approach - Analytics Vidhya November Jobathoon | Keen Eye &amp; Data</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Solution Approach - Analytics Vidhya November Jobathoon" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation of the solution approach for Employee Attrition Prediction Problem in Analytics Vidhya November Jobathon" />
+<meta property="og:description" content="Documentation of the solution approach for Employee Attrition Prediction Problem in Analytics Vidhya November Jobathon" />
+<link rel="canonical" href="https://www.ashishdev.codes/markdown/jobathon/competetion/analytics/2021/11/22/Approach_AV_Jobathon_Nov2021.html" />
+<meta property="og:url" content="https://www.ashishdev.codes/markdown/jobathon/competetion/analytics/2021/11/22/Approach_AV_Jobathon_Nov2021.html" />
+<meta property="og:site_name" content="Keen Eye &amp; Data" />
+<meta property="og:image" content="https://www.ashishdev.codes/images/vignette/AV-Nov.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-22T00:00:00-06:00" />
+<script type="application/ld+json">
+{"dateModified":"2021-11-22T00:00:00-06:00","datePublished":"2021-11-22T00:00:00-06:00","url":"https://www.ashishdev.codes/markdown/jobathon/competetion/analytics/2021/11/22/Approach_AV_Jobathon_Nov2021.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ashishdev.codes/markdown/jobathon/competetion/analytics/2021/11/22/Approach_AV_Jobathon_Nov2021.html"},"headline":"Solution Approach - Analytics Vidhya November Jobathoon","image":"https://www.ashishdev.codes/images/vignette/AV-Nov.png","description":"Documentation of the solution approach for Employee Attrition Prediction Problem in Analytics Vidhya November Jobathon","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://www.ashishdev.codes/feed.xml" title="Keen Eye &amp; Data" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-199323545-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Keen Eye &amp; Data</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Solution Approach - Analytics Vidhya November Jobathoon</h1><p class="page-description">Documentation of the solution approach for Employee Attrition Prediction Problem in Analytics Vidhya November Jobathon</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-11-22T00:00:00-06:00" itemprop="datePublished">
+        Nov 22, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jobathon">jobathon</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#competetion">competetion</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#analytics">analytics</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1>Table of Contents</h1>
+
+<p><a href="#1-problem-statement">1. Problem Statement</a>
+<a href="#2-data-wrangling">2. Data Wrangling</a>
+<a href="#3-results-from-the-eda">3. Results from the EDA</a>
+<a href="#4-feature-engineering">4. Feature Engineering</a>
+<a href="#5-modeling">5. Modeling</a></p>
+
+<h1 id="1-problem-statement">1. Problem Statement</h1>
+<p>Develop a Machine Learning model to aid HR Department in predicting the attrition of employees.</p>
+<h2>Given</h2>
+
+<p><strong>Train Dataset</strong> - Given with the following features:</p>
+<ol>
+  <li>Demographics of the employee</li>
+  <li>Tenure information</li>
+  <li>Historical data regarding the performance</li>
+</ol>
+
+<p><strong>Target</strong> - There is no apparent target variable given in the dataset. The target is given in the column <em><code class="language-plaintext highlighter-rouge">LastWorkingDate</code></em> of the dataset.
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>D</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>If  </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>e</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>o</mi><mi>y</mi><mi>e</mi><mi>e</mi><mtext> </mtext><mi>d</mi><mi>i</mi><mi>d</mi><mtext> </mtext><mi>n</mi><mi>o</mi><mi>t</mi><mtext> </mtext><mi>l</mi><mi>e</mi><mi>a</mi><mi>v</mi><mi>e</mi><mtext> </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>c</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>y</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>N</mi><mi>u</mi><mi>l</mi><mi>l</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>If  </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>e</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>o</mi><mi>y</mi><mi>e</mi><mi>e</mi><mtext> </mtext><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mtext> </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>c</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>a</mi><mi>n</mi><mi>y</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">Target = \begin{cases}
+   Date &amp;\text{If } \ the\ employee\ did\ not\ leave\ the\ company \\
+   Null &amp;\text{If } \ the\ employee\ left\ the\ company
+\end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">If </span></span><span class="mspace"> </span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mspace"> </span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">If </span></span><span class="mspace"> </span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mspace"> </span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+
+<p>Filled the missing values in <code class="language-plaintext highlighter-rouge">LastWorkingDate</code> column with the <code class="language-plaintext highlighter-rouge">ReportingDate</code> column.</p>
+
+<p><strong>Test Dataset</strong> - Given only the Employee ID’s for which we need to predict if they will leave the company or not in the <em>next two quarters of year 2018</em>.</p>
+
+<p><strong>Evaluation Metric</strong> - F1 Score</p>
+
+<h1 id="2-data-wrangling">2. Data Wrangling</h1>
+<p>To make the data more suitable for Machine Learning models, EDA, and Feature Engineering, a few Data Wrangling steps were taken:</p>
+<ol>
+  <li>Creating the Target Variable from the <code class="language-plaintext highlighter-rouge">LastWorkingDate</code> column</li>
+  <li>Fill missing values in the <code class="language-plaintext highlighter-rouge">LastWorkingDate</code> column with the <code class="language-plaintext highlighter-rouge">ReportingDate</code> column</li>
+  <li>Convert all the Date columns to datetime format</li>
+</ol>
+
+<h1 id="3-results-from-the-eda">3. Results from the EDA</h1>
+<p>Following are the  most prominent observations made from the EDA:</p>
+<ol>
+  <li>KDE Plots showed that the <code class="language-plaintext highlighter-rouge">Age</code> and <code class="language-plaintext highlighter-rouge">Salary</code> were normally distributed.</li>
+  <li><code class="language-plaintext highlighter-rouge">Total Business Value</code> had a lot of zero values.</li>
+  <li><code class="language-plaintext highlighter-rouge">Salary</code> and <code class="language-plaintext highlighter-rouge">Age</code> have a similar distribution for each <code class="language-plaintext highlighter-rouge">Gender</code>, <code class="language-plaintext highlighter-rouge">City</code> Category.</li>
+  <li>Employees with less Quarterly Rating tend to leave the company.</li>
+  <li>Older Employees have a much less probability of leaving the company, So <code class="language-plaintext highlighter-rouge">JoiningYear</code>, <code class="language-plaintext highlighter-rouge">Tenure</code> (in days, months, and years)  would be great features to use in the model.</li>
+  <li>Employees who did not leave the company have a much <strong>higher number of Positive</strong> <code class="language-plaintext highlighter-rouge">Total Business Value</code>.</li>
+</ol>
+
+<h1 id="4-feature-engineering">4. Feature Engineering</h1>
+<p><strong>Features that were created based on EDA:</strong></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">JoiningYear</code> - Year in which the employee joined the company.</li>
+  <li><code class="language-plaintext highlighter-rouge">WorkingDays</code> - Number of working days till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">WorkingMonths</code> - Number of working months till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">WorkingYears</code> - Number of working years till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">Promotions</code> - Number of promotions till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">Quarterly_Rating_RA</code> - Running Average of the <code class="language-plaintext highlighter-rouge">QuarterlyRating</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Quarterly_Rating_CumSum</code> - Cumulative sum of the <code class="language-plaintext highlighter-rouge">QuarterlyRating</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Total_Business_Value_CumSum</code> - Cumulative sum of the <code class="language-plaintext highlighter-rouge">Total Business Value</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PBVCount</code> - Number of positive <code class="language-plaintext highlighter-rouge">Total Business Value</code> till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">NBVCount</code> - Number of negative <code class="language-plaintext highlighter-rouge">Total Business Value</code> till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth</code> - Growth in Salary till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowthRatio</code> - Growth in Salary till the reporting date as a ratio.</li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingDays</code> - Ratio of <code class="language-plaintext highlighter-rouge">SalaryGrowth</code> to <code class="language-plaintext highlighter-rouge">WorkingDays</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingMonths</code> - Ratio of <code class="language-plaintext highlighter-rouge">SalaryGrowth</code> to <code class="language-plaintext highlighter-rouge">WorkingMonths</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingYears</code> - Ratio of <code class="language-plaintext highlighter-rouge">SalaryGrowth</code> to <code class="language-plaintext highlighter-rouge">WorkingYears</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Designation_Count</code> - Total number of employees with the same designation till the reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">ReportingDate_Count</code> - Total number of employees reported on a reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">City_ReprotingDate_Count</code> - Total number of employees reported in a particular city on a reporting date.</li>
+  <li><code class="language-plaintext highlighter-rouge">City_Count</code> - Total number of employees in a particular city.</li>
+</ol>
+
+<p><strong>Steps to assess the features:</strong></p>
+<ol>
+  <li>Calculate the <code class="language-plaintext highlighter-rouge">Mutual Information</code> between the features and the target variable.</li>
+  <li>Create a <code class="language-plaintext highlighter-rouge">Bar Plot</code> to show the <code class="language-plaintext highlighter-rouge">Mutual Information</code>.</li>
+  <li>Get 5-Fold Cross Validation Score for a CatBoost Base model (without Hyper Parameter Tuning).</li>
+  <li>Plot the <code class="language-plaintext highlighter-rouge">Feature Importance</code> of the CatBoost model.</li>
+</ol>
+
+<p><strong>Discarded Features based on assessment:</strong></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingDays</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingMonths</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Designation_Count</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowthRatio</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SalaryGrowth_WorkingYears</code></li>
+  <li><code class="language-plaintext highlighter-rouge">NBVCount</code></li>
+  <li><code class="language-plaintext highlighter-rouge">City_Count</code></li>
+</ol>
+
+<h1 id="5-modeling">5. Modeling</h1>
+<p><strong>List of models used during the model-building:</strong></p>
+<ol>
+  <li>XGBoost</li>
+  <li>CatBoost</li>
+  <li>LightGBM</li>
+  <li>Random Forest</li>
+  <li>MLP (with EaryStopping and ReduceLROnPlateau)</li>
+</ol>
+
+<p><strong>Results from the model building:</strong></p>
+<ol>
+  <li>Used 5-Fold StratifiedKFold cross validation to assess the model at every step.</li>
+  <li>MLP did not perform well due to less data available for training, and quickly overfit.</li>
+  <li>XGBoost, LightGBM, and Radom Forest performed worse than the CatBoost model.</li>
+  <li>Hyper Parameter Tuning was done for all the models using Optuna.</li>
+  <li>All models were trained using Early Stopping Rounds.</li>
+  <li>Models other than CatBoost did not improve the score even after Hyper Parameter Tuning.</li>
+  <li>CatBoost model was the best performing model.</li>
+</ol>
+
+<h2>Final Model</h2>
+
+<ol>
+  <li>Ensemble of <code class="language-plaintext highlighter-rouge">14 CatBoost Models</code> with different Hyper Parameters and Random SEEDs.</li>
+  <li>Average of 5-Fold out-of-fold scored predictions from each model to create <code class="language-plaintext highlighter-rouge">Meta Features</code>.</li>
+  <li>Trained a Logistic Regression model on the meta features.</li>
+  <li>Final Inference on the Test Dataset - Using the Logistic Regression model.</li>
+</ol>
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="ashudva/KED"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/markdown/jobathon/competetion/analytics/2021/11/22/Approach_AV_Jobathon_Nov2021.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Keen Eye &amp; Data, to be a perspicacious Data Scientist</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ashudva" title="ashudva"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/seriouscapy" title="seriouscapy"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
