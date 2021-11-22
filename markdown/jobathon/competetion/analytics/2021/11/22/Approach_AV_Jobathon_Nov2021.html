@@ -125,15 +125,17 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <h1>Table of Contents</h1>
+    <h1 id="table-of-contents">Table of Contents</h1>
 
-<p><a href="#1-problem-statement">1. Problem Statement</a>
-<a href="#2-data-wrangling">2. Data Wrangling</a>
-<a href="#3-results-from-the-eda">3. Results from the EDA</a>
-<a href="#4-feature-engineering">4. Feature Engineering</a>
-<a href="#5-modeling">5. Modeling</a></p>
+<ul>
+  <li><a href="#problem-statement">Problem Statement</a></li>
+  <li><a href="#data-wrangling">Data Wrangling</a></li>
+  <li><a href="#results-from-the-eda">Results from the EDA</a></li>
+  <li><a href="#feature-engineering">Feature Engineering</a></li>
+  <li><a href="#modeling">Modeling</a></li>
+</ul>
 
-<h1 id="1-problem-statement">1. Problem Statement</h1>
+<h1 id="problem-statement">Problem Statement</h1>
 <p>Develop a Machine Learning model to aid HR Department in predicting the attrition of employees.</p>
 <h2>Given</h2>
 
@@ -156,7 +158,7 @@ window.onload = wrap_img;
 
 <p><strong>Evaluation Metric</strong> - F1 Score</p>
 
-<h1 id="2-data-wrangling">2. Data Wrangling</h1>
+<h1 id="data-wrangling">Data Wrangling</h1>
 <p>To make the data more suitable for Machine Learning models, EDA, and Feature Engineering, a few Data Wrangling steps were taken:</p>
 <ol>
   <li>Creating the Target Variable from the <code class="language-plaintext highlighter-rouge">LastWorkingDate</code> column</li>
@@ -164,7 +166,7 @@ window.onload = wrap_img;
   <li>Convert all the Date columns to datetime format</li>
 </ol>
 
-<h1 id="3-results-from-the-eda">3. Results from the EDA</h1>
+<h1 id="results-from-the-eda">Results from the EDA</h1>
 <p>Following are the  most prominent observations made from the EDA:</p>
 <ol>
   <li>KDE Plots showed that the <code class="language-plaintext highlighter-rouge">Age</code> and <code class="language-plaintext highlighter-rouge">Salary</code> were normally distributed.</li>
@@ -175,7 +177,7 @@ window.onload = wrap_img;
   <li>Employees who did not leave the company have a much <strong>higher number of Positive</strong> <code class="language-plaintext highlighter-rouge">Total Business Value</code>.</li>
 </ol>
 
-<h1 id="4-feature-engineering">4. Feature Engineering</h1>
+<h1 id="feature-engineering">Feature Engineering</h1>
 <p><strong>Features that were created based on EDA:</strong></p>
 <ol>
   <li><code class="language-plaintext highlighter-rouge">JoiningYear</code> - Year in which the employee joined the company.</li>
@@ -219,7 +221,7 @@ window.onload = wrap_img;
   <li><code class="language-plaintext highlighter-rouge">City_Count</code></li>
 </ol>
 
-<h1 id="5-modeling">5. Modeling</h1>
+<h1 id="modeling">Modeling</h1>
 <p><strong>List of models used during the model-building:</strong></p>
 <ol>
   <li>XGBoost</li>
